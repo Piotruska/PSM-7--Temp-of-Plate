@@ -37,7 +37,6 @@ def solve_temperature_distribution():
     matrix = initialize_temperatures(size, top, left, bottom, right)
     A, b = setup_matrix_and_vector(size)
 
-    # Apply boundary conditions to the vector b
     for i in range(1, size - 1):
         b[(i - 1) * (size - 2)] -= matrix[i, 0]  # Left boundary
         b[(i - 1) * (size - 2) + size - 3] -= matrix[i, -1]  # Right boundary
@@ -45,7 +44,6 @@ def solve_temperature_distribution():
         b[j - 1] -= matrix[0, j]  # Top boundary
         b[-j] -= matrix[-1, j]  # Bottom boundary
 
-    # Using direct inversion to solve the matrix (not recommended for large systems)
     A_inv = np.linalg.inv(A)
     T_internal = np.dot(A_inv, b)
 
